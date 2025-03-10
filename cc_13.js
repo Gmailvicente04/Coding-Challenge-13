@@ -86,3 +86,39 @@ function addEmployeeCardWithBubbling(name, position) {
 
 // Test case: Click event should log message unless removed
 addEmployeeCardWithBubbling("Francisca Oswald", "Project Manager");
+
+// Task 5: Inline Editing of Employee Details
+function enableInlineEditing(card) {
+    card.addEventListener("dblclick", () => {
+        const nameElement = card.querySelector("h3");
+        const positionElement = card.querySelector("p");
+        
+        const nameInput = document.createElement("input");
+        nameInput.value = nameElement.textContent;
+        
+        const positionInput = document.createElement("input");
+        positionInput.value = positionElement.textContent;
+        
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        
+        saveButton.addEventListener("click", () => {
+            nameElement.textContent = nameInput.value;
+            positionElement.textContent = positionInput.value;
+            
+            card.replaceChild(nameElement, nameInput);
+            card.replaceChild(positionElement, positionInput);
+            card.removeChild(saveButton);
+        });
+        
+        card.replaceChild(nameInput, nameElement);
+        card.replaceChild(positionInput, positionElement);
+        card.appendChild(saveButton);
+    });
+}
+
+// Apply inline editing to existing cards
+document.querySelectorAll(".employee-card").forEach(enableInlineEditing);
+
+// Test case: Double-clicking should allow editing
+console.assert(document.querySelector(".employee-card"), "Test Failed: No employee card to edit");
