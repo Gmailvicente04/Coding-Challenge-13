@@ -41,3 +41,14 @@ function addEmployeeCard(name, position) {
 // Test case: Add a sample employee card
 addEmployeeCard("Vicente Oswald", "Operations Analyst");
 console.assert(document.querySelector(".employee-card"), "Test Failed: Employee card not added");
+
+// Task 3: Converting NodeLists to Arrays for Bulk Updates
+function highlightCards() {
+    const cards = Array.from(document.querySelectorAll(".employee-card"));
+    cards.forEach(card => card.classList.add("highlight"));
+}
+
+// Test case: Check if highlight class is added
+highlightCards();
+console.assert(document.querySelector(".employee-card.highlight"), "Test Failed: Highlight not applied");
+
