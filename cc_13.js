@@ -52,3 +52,37 @@ function highlightCards() {
 highlightCards();
 console.assert(document.querySelector(".employee-card.highlight"), "Test Failed: Highlight not applied");
 
+// Task 4: Implementing Removal of Employee Cards with Event Bubbling
+document.getElementById("employeeContainer").addEventListener("click", (event) => {
+    if (event.target.classList.contains("employee-card")) {
+        console.log("Employee card clicked");
+    }
+});
+
+// Modify remove button event to use stopPropagation
+function addEmployeeCardWithBubbling(name, position) {
+    const container = document.getElementById("employeeContainer");
+    const card = document.createElement("div");
+    card.classList.add("employee-card");
+    
+    const heading = document.createElement("h3");
+    heading.textContent = name;
+    
+    const para = document.createElement("p");
+    para.textContent = position;
+    
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        container.removeChild(card);
+    });
+    
+    card.appendChild(heading);
+    card.appendChild(para);
+    card.appendChild(removeButton);
+    container.appendChild(card);
+}
+
+// Test case: Click event should log message unless removed
+addEmployeeCardWithBubbling("Francisca Oswald", "Project Manager");
